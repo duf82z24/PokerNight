@@ -1,0 +1,13 @@
+{
+    "foo":42,
+    "bar":["a","b","c"],
+    "baz":{"x":1,"y":2}
+}
+
+        [
+            {
+                "collectionName" : "Community Cards",
+                "cardGridLocations" : "3-1,3-2,3-3,3-4,3-5"    
+            }
+        ]
+        

@@ -1,0 +1,30 @@
+{
+   "name" : "Texas Hold'em",
+   "basis" : "holdem",
+   "numRounds" : 4,
+   "communityCardRule" : 
+    {
+        "name" : "Community Rule",
+        "dealRule" : ["0", "3-u", "1-u", "1-u"],
+        "communityCardCollection" :
+        [
+            {
+                "name" : "Community Cards",
+                "cardGridLocations" : ["3-1","3-2","3-3","3-4","3-5"]    
+            }
+        ]
+    },
+    "playerCardRule" :
+    {
+        "numberOfCardsPerDeal" : ["2-d"]
+    },
+    "WinCondition" :
+    {
+        [
+            {
+                "Condition" : "HighHand",
+                "PotPercentage" : "100"
+            }
+        ]
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "name" : "My Awesome Poker Game",
+    "basis" : "holdem | draw | stud",
+    "playerCardRules" :
+    {
+        "numberOfCardsPerDeal" : ["2-d,1-u"],
+        "numberOfCardsDrawPerRound" : ["4wA"],
+        "numberOfCardsDroppedPerRound" : [0]
+    },
+	"communityCardRule" :
+    {
+        "dealRule" : ["0", "3-u", "1-u", "1-u"],
+        "communityCardCollection" :
+            [
+                {
+                    "collectionName" : "Community Cards",
+                    "cardGridLocations" : ["3-1","3-2","3-3","3-4","3-5"]
+                }
+            ]
+    },
+    "WinCondtion" : 
+    [
+		{
+			"Condition" : "HighHand",
+			"PotPercentage" : "20"
+		},
+		{
+			"Condition" : "LowBall",
+			"PotPercentage" : "20"
+		},
+		{
+			"Condition" : "BackToBack",
+			"Rank" : "Jack",
+			"PotPercentage" : "20"
+		},
+		{
+			"Condition" : "SuitHighCard",
+			"Suit" : "Spades",
+			"RequiredDown" : "true",
+			"PotPercentage" : "20"
+		},
+		{
+			"Condition" : "SuitLowCard",
+			"Suit" : "Clubs",
+			"RequiredDown": "false",
+			"PotPercentage" : "20"
+		}
+    ],
+	"specialCardRules" :
+    [
+        {
+            "cardAction" : "Wild",  
+            "card" :
+            [
+                {
+                    "Rank" : "Nine"
+                },
+                {
+                    "Rank" : "Three"
+                }
+            ]
+        },      
+        {
+            "cardAction": "Kill",
+            "card" :
+            [
+                {
+                    "Rank" : "Joker",
+                    "Suit" : "Clubs"
+                },
+                {
+                    "Rank" : "Joker",
+                    "Suit" : "Diamonds"
+                }
+            ]
+        },
+        {
+            "cardAction" : "Buy", 
+            "amount" : "0.50",
+            "card" :
+            [
+                {
+                    "Rank" : "Four"
+                }
+            ]
+        }
+    ]
+}    
