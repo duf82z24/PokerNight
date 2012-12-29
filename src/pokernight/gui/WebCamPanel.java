@@ -24,10 +24,13 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ComponentListener;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
+
+import org.jvcp.VideoCapture;
 
 
 /**
@@ -39,16 +42,24 @@ public class WebCamPanel extends javax.swing.JPanel implements CaptureObserver{
     protected BufferedImage currentImage;
     WebCamThread camRunnable = null;
     Thread camThread = null;
+    private boolean self = false;
   
     /**
      * Creates new form WebCamPanel
      */
     public WebCamPanel() {
-        initComponents();
+       this(false);
     }
     
+    public WebCamPanel(boolean isSelf)
+    {
+    	self = isSelf;
+    	initComponents();
+    }
+  /*  
     public void startCapture()
     {
+    	
         if(camRunnable != null)
             camRunnable.shutdown();
         
@@ -56,8 +67,36 @@ public class WebCamPanel extends javax.swing.JPanel implements CaptureObserver{
         camRunnable.setCaptureObserver(this);
         camThread = new Thread(camRunnable);
         camThread.start();
-    }
+        
+    	
+    	System.out.println("Initializing Camera");
+ 	   VideoCapture qtc = VideoCapture.init();
+       if (qtc == null) {
+               System.out.println("Video capture subsystem not initialized");
+               return;
+       }
 
+       if ((qtc.getDeviceList() == null) || (qtc.getDeviceList().length == 0)){
+               System.out.println("No video capture device");
+               return;
+       }
+
+       for (int i=0; i<qtc.getDeviceList().length;i++)
+               if (qtc.getDeviceList()[i] != null)
+                       System.out.println(i+" : Description: "+ qtc.getDeviceList()[i].getDescription());
+
+       qtc.setDevice( qtc.getDeviceList()[0] );      
+
+       qtc.start();
+       
+       if(qtc.getCaptureComponent() == null)
+    	   System.out.println("null component");
+       this.add(qtc.getCaptureComponent());
+       qtc.getCaptureComponent().setVisible(true);
+     
+       System.out.println("Done Initializing Camera");
+    }
+*/
         @Override 
 	public void onError(CaptureStream sender, CaptureException e)
 	{	System.err.println("onError " + sender);
@@ -108,7 +147,7 @@ public class WebCamPanel extends javax.swing.JPanel implements CaptureObserver{
 		}
 	}
         
-	
+	/*
     @Override
     public void paintComponent(Graphics g)
     {
@@ -125,7 +164,7 @@ public class WebCamPanel extends javax.swing.JPanel implements CaptureObserver{
         }
         
     }
-
+*/
         
     /**
      * This method is called from within the constructor to initialize the form.
@@ -138,6 +177,7 @@ public class WebCamPanel extends javax.swing.JPanel implements CaptureObserver{
 
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.white, java.awt.Color.darkGray, java.awt.Color.gray));
 
+        /*
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,6 +188,39 @@ public class WebCamPanel extends javax.swing.JPanel implements CaptureObserver{
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 294, Short.MAX_VALUE)
         );
+        
+       */
+        if(self)
+        {
+	    	System.out.println("Initializing Camera");
+	  	   VideoCapture qtc = VideoCapture.init();
+	        if (qtc == null) {
+	                System.out.println("Video capture subsystem not initialized");
+	                return;
+	        }
+	
+	        if ((qtc.getDeviceList() == null) || (qtc.getDeviceList().length == 0)){
+	                System.out.println("No video capture device");
+	                return;
+	        }
+	
+	        for (int i=0; i<qtc.getDeviceList().length;i++)
+	                if (qtc.getDeviceList()[i] != null)
+	                        System.out.println(i+" : Description: "+ qtc.getDeviceList()[i].getDescription());
+	
+	        qtc.setDevice( qtc.getDeviceList()[0] );      
+	
+	       
+	        
+	        if(qtc.getCaptureComponent() == null)
+	     	   System.out.println("null component");
+	        this.add(qtc.getCaptureComponent());
+	        qtc.getCaptureComponent().setVisible(true);
+	      
+	        System.out.println("Done Initializing Camera");
+	        qtc.start();
+        }
+        
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
@@ -163,6 +236,7 @@ class WebCamThread implements Runnable
     {
         _observer = observer;
     }
+ 
     
     public void shutdown()
     {
@@ -170,7 +244,6 @@ class WebCamThread implements Runnable
     }
        public void run()
     {
-
         try
         {
            

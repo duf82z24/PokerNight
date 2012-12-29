@@ -4,6 +4,8 @@
  */
 package pokernight.gui;
 
+import org.jvcp.VideoCapture;
+
 import com.lti.civil.CaptureException;
 import com.lti.civil.CaptureObserver;
 import com.lti.civil.CaptureStream;
@@ -20,7 +22,8 @@ public class PokerNightFrame extends javax.swing.JFrame implements CaptureObserv
      */
     public PokerNightFrame() {
         initComponents();
-        selfWebCamPanel.startCapture();
+        //selfWebCamPanel.startCapture();
+        //selfWebCamPanel.revalidate();
     }
 
     /**
@@ -34,6 +37,7 @@ public class PokerNightFrame extends javax.swing.JFrame implements CaptureObserv
 
         pokerTablePanel = new PokerTablePanel();
         selfWebCamPanel = new pokernight.gui.WebCamPanel();
+       
         player1WebCamPanel = new pokernight.gui.WebCamPanel();
         player3WebCamPanel = new pokernight.gui.WebCamPanel();
         player2WebCamPanel = new pokernight.gui.WebCamPanel();
@@ -61,6 +65,10 @@ public class PokerNightFrame extends javax.swing.JFrame implements CaptureObserv
 
         pokerTablePanel.setPreferredSize(new java.awt.Dimension(1000, 500));
 
+        qtc.getCaptureComponent().setSize(new java.awt.Dimension(106, 106));
+        qtc.getCaptureComponent().setPreferredSize(new java.awt.Dimension(106, 106));
+        qtc.getCaptureComponent().setMaximumSize(new java.awt.Dimension(106, 106));
+        selfWebCamPanel.setPreferredSize(new java.awt.Dimension(106, 106));
         selfWebCamPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.white, java.awt.Color.darkGray, java.awt.Color.gray));
 
         org.jdesktop.layout.GroupLayout selfWebCamPanelLayout = new org.jdesktop.layout.GroupLayout(selfWebCamPanel);
@@ -68,11 +76,18 @@ public class PokerNightFrame extends javax.swing.JFrame implements CaptureObserv
         selfWebCamPanelLayout.setHorizontalGroup(
             selfWebCamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 100, Short.MAX_VALUE)
+            .add(qtc.getCaptureComponent())
         );
         selfWebCamPanelLayout.setVerticalGroup(
             selfWebCamPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 100, Short.MAX_VALUE)
+            .add(qtc.getCaptureComponent())
         );
+        
+     
+        //selfWebCamPanelLayout.addLayoutComponent("WebCam", qtc.getCaptureComponent());
+        //selfWebCamPanel.add(qtc.getCaptureComponent());               
+        
 
         player1WebCamPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.white, java.awt.Color.darkGray, java.awt.Color.gray));
         player1WebCamPanel.setPreferredSize(new java.awt.Dimension(106, 106));
@@ -297,21 +312,42 @@ public class PokerNightFrame extends javax.swing.JFrame implements CaptureObserv
         );
 
         pack();
+        qtc.start();
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
+    private static VideoCapture qtc;
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+
+	    qtc = VideoCapture.init();
+		if (qtc == null) {
+			System.out.println("Video capture subsystem not initialized");
+			return;
+		}
+		
+		if ((qtc.getDeviceList() == null) || (qtc.getDeviceList().length == 0)){
+			System.out.println("No video capture device");
+			return;
+		}
+
+		for (int i=0; i<qtc.getDeviceList().length;i++)
+			if (qtc.getDeviceList()[i] != null)
+				System.out.println(i+" : Description: "+ qtc.getDeviceList()[i].getDescription());
+
+		qtc.setDevice( qtc.getDeviceList()[0] );
+    	
+    	/* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -336,6 +372,8 @@ public class PokerNightFrame extends javax.swing.JFrame implements CaptureObserv
                 new PokerNightFrame().setVisible(true);
             }
         });
+        
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
