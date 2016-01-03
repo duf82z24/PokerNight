@@ -1,0 +1,23 @@
+group 'PokerNight'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.0.1'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.4-1'
+
+}
+
+task myJar(type: Jar)
+
+artifacts {
+    archives myJar
+}
