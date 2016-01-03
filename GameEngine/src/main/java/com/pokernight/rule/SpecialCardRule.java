@@ -1,4 +1,4 @@
-package pokernight.rule;
+package com.pokernight.rule;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package pokernight.exception;
+package com.pokernight.rule;
 
 public class RuleParseException extends RuntimeException {
 

@@ -23,4 +23,8 @@ public interface PlayerCommunicationService {
     void notifyPlayersOfAction(PlayerModel player, PlayerAction playerAction);
 
     void notifyPlayersOfWinners(List<PlayerModel> winningPlayers, int pot);
+
+    void notifyPlayersOfActivatedPlayer(PlayerModel playerModel);
+
+    void notifyPlayersOfDeactivatedPlayer(PlayerModel playerModel);
 }

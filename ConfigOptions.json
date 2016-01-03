@@ -1,6 +1,7 @@
 {
     "name" : "My Awesome Poker Game",
     "basis" : "holdem | draw | stud",
+  "bigBlindOrAnteAmount": 5,
     "playerCardRules" :
     {
         "numberOfCardsPerDeal" : ["2-d,1-u"],

@@ -1,6 +1,6 @@
-package pokernight.rule;
+package com.pokernight.rule;
 
-import pokernight.exception.RuleParseException;
+import com.pokernight.rule.RuleParseException;
 import pokernight.model.Card;
 import pokernight.model.Suit;
 import pokernight.model.Rank;

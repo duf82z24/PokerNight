@@ -1,6 +1,7 @@
 {
   "name": "Texas",
   "basis": "HoldEm",
+  "smallBlindOrAnteAmount": 5,
   "rounds": 4,
   "playerCardRule": {
     "numberOfCardsPerDeal": [

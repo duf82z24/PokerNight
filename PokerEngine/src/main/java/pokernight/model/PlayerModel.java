@@ -4,15 +4,15 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import pokernight.exception.IllegalBetException;
-import pokernight.rule.SpecialCardRule;
 
 public class PlayerModel {
     private String name;
-    private float chips;
+    private int chips;
     private Set<Card> hand;
     private boolean isFolded = false;
+    private boolean sittingOut = false;
 
-    public PlayerModel(String name, float chips) {
+    public PlayerModel(String name, int chips) {
         this.name = name;
         this.chips = chips;
         this.hand = new LinkedHashSet<Card>();
@@ -23,19 +23,19 @@ public class PlayerModel {
             hand.add(card);
     }
 
-    public void bet(float amount) throws IllegalBetException {
+    public void bet(int amount) throws IllegalBetException {
         if (chips - amount < 0)
             throw new IllegalBetException("Insufficient Chips!");
         else
             chips -= amount;
     }
 
-    public float getChipsLeft() {
+    public int getChipsLeft() {
         return chips;
     }
 
     public Card[] getHand() {
-        return hand.toArray(new Card[0]);
+        return hand.toArray(new Card[hand.size()]);
     }
 
     public String getHandAsString() {
@@ -55,16 +55,19 @@ public class PlayerModel {
         return "Name: " + name + " has " + chips;
     }
 
-
-    public void applyAction(SpecialCardRule.CardAction action) {
-        // TODO
-    }
-
     public boolean isFolded() {
         return isFolded;
     }
 
     public void setFolded(boolean folded) {
         isFolded = folded;
+    }
+
+    public boolean isSittingOut() {
+        return sittingOut;
+    }
+
+    public void setSittingOut(boolean sittingOut) {
+        this.sittingOut = sittingOut;
     }
 }

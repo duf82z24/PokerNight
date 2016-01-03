@@ -1,4 +1,4 @@
-package pokernight.rule;
+package com.pokernight.rule;
 
 import pokernight.model.Rank;
 import pokernight.model.Suit;

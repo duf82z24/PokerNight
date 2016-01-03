@@ -56,4 +56,23 @@ public class PlayerAction {
             throw new IllegalBetException(("Cannot check/fold an amount"));
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PlayerAction action1 = (PlayerAction) o;
+
+        if (amount != action1.amount) return false;
+        return action == action1.action;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = action != null ? action.hashCode() : 0;
+        result = 31 * result + amount;
+        return result;
+    }
 }
