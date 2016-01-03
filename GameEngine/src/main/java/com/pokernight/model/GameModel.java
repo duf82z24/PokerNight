@@ -1,6 +1,7 @@
 package com.pokernight.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 import com.pokernight.service.PlayerCommunicationService;
@@ -92,6 +93,7 @@ public class GameModel {
 
     public List<PlayerModel> playGame() {
         deck.shuffle();
+        players.stream().forEach(player -> player.setFolded(false));
         int i = 0;
         PlayerModel winner = null;
         while (i < numberOfRounds && winner == null) {
@@ -115,9 +117,14 @@ public class GameModel {
     protected PlayerModel playRound(int roundNumber) {
         dealRoundCards(roundNumber);
         //TODO: Betting Scheme
-        players.stream()
+
+        int currentBet = 0;
+        List<PlayerModel> activePlayers = players.stream()
                 .filter(player -> !player.isFolded())
-                .forEachOrdered(this::promptPlayerForAction);
+                .collect(Collectors.toList());
+        for (PlayerModel player : activePlayers) {
+            currentBet = promptPlayerForAction(player, currentBet);
+        }
 
         if (playersRemaining == 1) {
             return players.stream()
@@ -128,8 +135,8 @@ public class GameModel {
         return null;
     }
 
-    private void promptPlayerForAction(PlayerModel player) {
-        int currentBet = 0;
+    private int promptPlayerForAction(PlayerModel player, int currentBet) {
+        int newBet = currentBet;
         if (playersRemaining > 1) {
             PlayerAction playerAction = playerCommunicationService.promptPlayerForAction(player, currentBet);
             switch (playerAction.action) {
@@ -141,6 +148,7 @@ public class GameModel {
                     break;
                 case CALL:
                 case RAISE:
+                    newBet = playerAction.amount;
                     pot += playerAction.amount;
                     break;
                 case ANTE:
@@ -149,6 +157,8 @@ public class GameModel {
             }
             playerCommunicationService.notifyPlayersOfAction(player, playerAction);
         }
+
+        return newBet;
     }
 
     protected void dealRoundCards(int round) {

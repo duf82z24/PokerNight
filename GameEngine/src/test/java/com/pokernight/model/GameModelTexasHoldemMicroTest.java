@@ -92,8 +92,8 @@ public class GameModelTexasHoldemMicroTest {
 
         //then
         verify(mockPlayerCommunicationService, times(4)).notifyPlayersOfCardDealtToPlayer(any(PlayerModel.class), any(Card.class), eq(false));
-        verify(mockPlayerCommunicationService).promptPlayerForAction(any(PlayerModel.class), eq(25));
-        verify(mockPlayerCommunicationService).promptPlayerForAction(any(PlayerModel.class), eq(35));
+        verify(mockPlayerCommunicationService).promptPlayerForAction(same(player1), eq(0));
+        verify(mockPlayerCommunicationService).promptPlayerForAction(same(player2), eq(10));
 
 
         assertPlayersHaveProperNumberOfCards();
