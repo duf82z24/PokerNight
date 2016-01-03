@@ -1,4 +1,7 @@
-package pokernight.model;
+package com.pokernight.model;
+
+import pokernight.model.Card;
+import pokernight.model.DeckModel;
 
 import java.util.ArrayList;
 import java.util.List;

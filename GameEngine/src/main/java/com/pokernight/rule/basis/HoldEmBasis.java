@@ -4,7 +4,7 @@ import com.pokernight.exception.GameEngineException;
 import com.pokernight.model.PlayerAction;
 import com.pokernight.rule.GameRules;
 import com.pokernight.service.PlayerCommunicationService;
-import pokernight.model.PlayerModel;
+import com.pokernight.model.PlayerModel;
 
 import java.util.List;
 import java.util.stream.Collectors;

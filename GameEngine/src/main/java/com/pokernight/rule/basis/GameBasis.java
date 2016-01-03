@@ -2,7 +2,7 @@ package com.pokernight.rule.basis;
 
 import com.pokernight.rule.GameRules;
 import com.pokernight.service.PlayerCommunicationService;
-import pokernight.model.PlayerModel;
+import com.pokernight.model.PlayerModel;
 
 import java.util.List;
 

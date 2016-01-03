@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import pokernight.model.PlayerModel;
+import com.pokernight.model.PlayerModel;
 
 import java.util.ArrayList;
 import java.util.List;

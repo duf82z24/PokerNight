@@ -1,4 +1,4 @@
-package pokernight.exception;
+package com.pokernight.exception;
 
 public class IllegalBetException extends RuntimeException {
 

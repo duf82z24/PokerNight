@@ -7,11 +7,9 @@ import javax.inject.Inject;
 import com.pokernight.service.PlayerCommunicationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pokernight.exception.IllegalBetException;
+import com.pokernight.exception.IllegalBetException;
 import com.pokernight.rule.*;
 import pokernight.model.*;
-
-import static com.pokernight.model.PlayerAction.Action.*;
 
 public class GameModel {
     private Logger logger = LoggerFactory.getLogger(GameModel.class);

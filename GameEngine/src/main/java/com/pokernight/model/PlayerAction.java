@@ -1,6 +1,6 @@
 package com.pokernight.model;
 
-import pokernight.exception.IllegalBetException;
+import com.pokernight.exception.IllegalBetException;
 
 /**
  * Created by cdufresne on 1/2/16.

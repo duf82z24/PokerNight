@@ -3,7 +3,7 @@ package com.pokernight.service;
 import com.pokernight.model.PlayerAction;
 import com.pokernight.model.PlayerGameStateView;
 import pokernight.model.Card;
-import pokernight.model.PlayerModel;
+import com.pokernight.model.PlayerModel;
 
 import java.util.List;
 

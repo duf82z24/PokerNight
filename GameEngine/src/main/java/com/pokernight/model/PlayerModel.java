@@ -1,9 +1,10 @@
-package pokernight.model;
+package com.pokernight.model;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import pokernight.exception.IllegalBetException;
+import com.pokernight.exception.IllegalBetException;
+import pokernight.model.Card;
 
 public class PlayerModel {
     private String name;
